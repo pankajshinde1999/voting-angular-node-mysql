@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     if (value.username !== "" && value.password !== "") {
       console.log(value);
       if (value.username == 'admin' && value.password == 'admin') {
-        sessionStorage.setItem('token', this.adminvalue[0].username);
+        sessionStorage.setItem('token', this.adminvalue[0].name);
         this.router.navigate(['/main'])
       }
       else if (value.username && value.password) {

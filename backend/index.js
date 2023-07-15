@@ -21,7 +21,7 @@ connection.connect((err) => {
 });
 // Get all admin
 app.get('/admin', (req, res) => {
-    connection.query('SELECT * FROM voting', (error, results, fields) => {
+    connection.query('SELECT * FROM admin', (error, results, fields) => {
         if (error) {
             res.send(error);
         }
@@ -40,10 +40,10 @@ app.get('/users', (req, res) => {
 
 // Store user details
 app.post('/signUp', (req, res) => {
-    const { name, username, email, password, phone, status, vote } = req.body;
+    const { name, username, email, password, phone } = req.body;
     connection.query(
-        `INSERT INTO users (name, username, email, password, phone, status, vote) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [name, username, email, password, phone, status, vote],
+        `INSERT INTO users (name, username, email, password, phone) VALUES (?, ?, ?, ?, ?)`,
+        [name, username, email, password, phone],
         (error, results, fields) => {
             if (error) {
                 res.send(error);
@@ -106,8 +106,8 @@ app.put('/user/update', (req, res) => {
 
 
 // Get vote details
-app.get('/candidates', (req, res) => {
-    connection.query('SELECT * FROM votes', (error, results, fields) => {
+app.get('/polls/candidates', (req, res) => {
+    connection.query('SELECT * FROM candidates', (error, results, fields) => {
         if (error) {
             res.send(error);
         }
@@ -116,11 +116,11 @@ app.get('/candidates', (req, res) => {
 });
 
 // Create candidate createcandidate
-app.post('/createcandidate', (req, res) => {
-    const { candidate, symbol, party, count } = req.body;
+app.post('/polls/createcandidate', (req, res) => {
+    const { candidate, symbol, party } = req.body;
     connection.query(
-        `INSERT INTO votes (candidate, symbol, party, count) VALUES (?, ?, ?, ?)`,
-        [candidate, symbol, party, count],
+        `INSERT INTO candidates (candidate, symbol, party) VALUES (?, ?, ?)`,
+        [candidate, symbol, party],
         (error, results, fields) => {
             if (error) {
                 res.send(error);
@@ -132,10 +132,10 @@ app.post('/createcandidate', (req, res) => {
 });
 
 // Delete candidate :name
-app.delete('/:name', (req, res) => {
+app.delete('/polls/:name', (req, res) => {
     const name = req.params.name;
     connection.query(
-        `DELETE FROM votes WHERE candidate = ?`,
+        `DELETE FROM candidates WHERE candidate = ?`,
         [name],
         (error, results, fields) => {
             if (error) {
@@ -148,10 +148,10 @@ app.delete('/:name', (req, res) => {
 });
 
 // Update candidate updatecandidate
-app.put('/updatecandidate', (req, res) => {
+app.put('/polls/updatecandidate', (req, res) => {
     const { candidate, count } = req.body;
     connection.query(
-        `UPDATE votes SET count = ? WHERE candidate = ?`,
+        `UPDATE candidates SET count = ? WHERE candidate = ?`,
         [count, candidate],
         (error, results, fields) => {
             if (error) {
