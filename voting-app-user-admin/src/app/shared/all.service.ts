@@ -9,7 +9,7 @@ export class AllService {
 
   constructor(private http: HttpClient, private router: Router) { }
   baseUrl = 'http://localhost:3000/';
-
+  //getUseradminDetails  usersadmin
   getadmin(): Observable<any[]> {
     let url = `${this.baseUrl}admin`;
     // console.log(url)
@@ -63,6 +63,7 @@ export class AllService {
   }
   logout() {
     sessionStorage.removeItem('token')
+    sessionStorage.removeItem('role')
     sessionStorage.clear()
     this.router.navigate(['/login'])
   }

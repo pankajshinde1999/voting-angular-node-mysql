@@ -6,11 +6,11 @@
         <div class="card-body">
           <h5 class="card-title">Candidate Management</h5>
           <p class="card-text"></p>
-          <a routerLink="/adminpage" *ngIf="value === 'admin'">Candidate Management</a>
+          <a routerLink="/adminpage" *ngIf="role === 'admin'">Candidate Management</a>
         </div>
       </div>
     </div>
-    <div id="div1">
+    <div id="div1" *ngIf="role != 'admin' ">
       <div class="card shadow-lg" style="width: 18rem; height: 24rem;">
         <img class="card-img-top" src="../../assets/voting-box.png" alt="Card image cap" style="padding: 1em;">
         <div class="card-body">

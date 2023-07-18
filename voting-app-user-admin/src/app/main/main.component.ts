@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   value: any;
+  role: string | null;
 
   constructor() {
     this.value = sessionStorage.getItem('token')
+    this.role = sessionStorage.getItem('role')
   }
   ngOnInit(): void {
   }

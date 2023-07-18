@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   }
   canActivate(): any {
-    let adminvalue = sessionStorage.getItem('token')
+    let adminvalue = sessionStorage.getItem('role')
     let uservalue = sessionStorage.getItem('token')
     if (adminvalue == 'admin') {
       this.getLoggedInName.emit(adminvalue);

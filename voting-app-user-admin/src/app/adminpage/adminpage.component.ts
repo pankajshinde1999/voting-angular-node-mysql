@@ -21,7 +21,7 @@ export class AdminpageComponent implements OnInit {
       this.candidateValue = event
       console.log(this.candidateValue);
     });
-    this.value = sessionStorage.getItem('token')
+    this.value = sessionStorage.getItem('role')
     if (this.value !== 'admin') {
       this.value = null;
       this.router.navigate(['**']);

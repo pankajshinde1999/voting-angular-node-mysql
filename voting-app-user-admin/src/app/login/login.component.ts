@@ -18,33 +18,28 @@ export class LoginComponent implements OnInit {
       console.log(this.adminvalue);
     });
   }
-
   checkuseroradmin(logininfo: any): void {
+    // console.log(logininfo);
     let value = logininfo
     if (value.username !== "" && value.password !== "") {
-      console.log(value);
-      if (value.username == 'admin' && value.password == 'admin') {
-        sessionStorage.setItem('token', this.adminvalue[0].name);
-        this.router.navigate(['/main'])
-      }
-      else if (value.username && value.password) {
-        this._service.getuser(value.username, value.password).subscribe(event => {
-          console.log(event)
-          if (event.length > 0) {
-            sessionStorage.setItem('token', event[0].username);
-            this.router.navigate(['/userpage']);
-            console.log("event", event[0])
+      this._service.getuser(value.username, value.password).subscribe(element => {
+        console.log(element)
+        if (element.length > 0) {
+          sessionStorage.setItem('token', element[0].username);
+          sessionStorage.setItem('role', element[0].role);
+          if (element[0].role == 'admin') {
+            this.router.navigate(['/main']);
           }
           else {
-            alert("Invalid credentials");
-            sessionStorage.clear();
+            this.router.navigate(['/userpage']);
           }
-        });
-      }
-      else {
-        alert("Invalid credentials");
-        sessionStorage.clear();
-      }
+          console.log("element", element[0])
+        }
+        else {
+          alert("Invalid credentials");
+          sessionStorage.clear();
+        }
+      });
     }
     else {
       alert("Please fill the credentials");
